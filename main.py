@@ -8,6 +8,10 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 
 # uvicorn main:app --reload
+# source fastapienv/bin/activate
+
+# docker compose up --build
+# poetry init
 
 
 class Book(BaseModel):
@@ -47,7 +51,8 @@ async def book_by_index(index: int):
     if index < len(BOOKS):
         return BOOKS[index]
     else:
-        raise HTTPException(404, f"Book index {index} out of range ({len(BOOKS)}).")
+        raise HTTPException(
+            404, f"Book index {index} out of range ({len(BOOKS)}).")
 
 
 @app.post("/add-book")
