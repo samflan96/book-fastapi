@@ -6,12 +6,16 @@ from fastapi import FastAPI, HTTPException
 import random
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
+from os import environ as env
 
 # uvicorn main:app --reload
 # source fastapienv/bin/activate
 
 # docker compose up --build
 # poetry init
+
+# specify Docker build
+# ocker compose -f docker-compose.development.yaml up --build
 
 
 class Book(BaseModel):
@@ -33,7 +37,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to my bookstore app!"}
+    return {"message": f"Welcome to my bookstore app! Secret = {env['MY_VARIABLE']}"}
 
 
 @app.get("/random-book")
